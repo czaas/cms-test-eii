@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import * as CmsActions from '../store/cms-actions.js';
 
@@ -13,6 +14,14 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleAddVideo = this.handleAddVideo.bind(this);
+		this.componentDidMount = this.componentDidMount.bind(this);
+	}
+
+	componentDidMount() {
+		axios.get(this.props.apiUrl)
+			.then((response) => this.props.actions.getAllData(response.data))
+			.catch((err) => console.log(err));
+
 	}
 
 	handleAddVideo(video) {
