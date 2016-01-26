@@ -1,4 +1,4 @@
-import { ADD_VIDEO, GET_ALL_DATA } from './_action-types.js';
+import { ADD_VIDEO, GET_ALL_DATA } from '../constants/action-types.js';
 
 const intialState = [];
 

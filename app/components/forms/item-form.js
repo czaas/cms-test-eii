@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ITEM_TYPES } from '../../constants/item-types.js';
+
 export class AddItem extends React.Component {
 
 	constructor(props, context) {
@@ -12,7 +14,7 @@ export class AddItem extends React.Component {
 		e.preventDefault();
 
 		let newVideo = {
-			"type": "video",
+			"type": this.refs.item_type.value,
 			"id": this.props.items.length,
 			"meta_data": {
 				"title": this.refs.meta_title.value,
@@ -24,11 +26,15 @@ export class AddItem extends React.Component {
 				"body": this.refs.content_body.value
 			}
 		};
+		
 		this.props.addVideo(newVideo);
 		this.refs.add_item_form.reset();
 	}
 
 	render() {
+
+		let all_items = ITEM_TYPES.map((item, i) => <option value={item} key={i}>{item}</option>);
+
 		return (
 			<form ref="add_item_form" onSubmit={this.newItem}>
 				<input type="text" ref="content_title" placeholder="On Page title" />
@@ -37,6 +43,11 @@ export class AddItem extends React.Component {
 				<input type="text" ref="meta_title" placeholder="Meta title" />
 				<input type="text" ref="meta_description" placeholder="Meta description" />
 				<input type="text" ref="meta_keywords" placeholder="Meta Keywords" />
+
+				<select ref="item_type">
+					{all_items}
+				</select>
+
 				<button>Add New Item</button>
 			</form>
 		);

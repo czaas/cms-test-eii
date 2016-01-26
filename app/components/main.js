@@ -13,7 +13,7 @@ let request = axios.create({
 import * as CmsActions from '../store/cms-actions.js';
 
 import { ListOfItems } from './list-items.js';
-import { AddItem } from './add-item.js';
+import { AddItem } from './forms/item-form.js';
 
 
 class App extends React.Component {
