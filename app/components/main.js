@@ -22,7 +22,7 @@ class App extends React.Component {
 		super(props);
 		this.handleAddItem = this.handleAddItem.bind(this);
 		this.componentDidMount = this.componentDidMount.bind(this);
-		this.handleDeleteItem = this.handleDeleteItem.bind(this);
+		this.setItemStatus = this.setItemStatus.bind(this);
 	}
 
 	componentDidMount() {
@@ -38,9 +38,9 @@ class App extends React.Component {
 			.catch((err) => console.log(err));
 	}
 
-	handleDeleteItem(item){
+	setItemStatus(item, status){
 
-		item.status = 'deleted';
+		item.status = status;
 
 		request.put(`${this.props.apiUrl}/${item.id}`, item)
 			.then((response) => {
@@ -59,7 +59,7 @@ class App extends React.Component {
 			<div>
 				<h2>CMS Test</h2>
 				<AddItem items={items} actions={actions} addItem={this.handleAddItem} />
-				<ListOfItems items={items} handleDeleteItem={this.handleDeleteItem} />
+				<ListOfItems items={items} handleSetStatus={this.setItemStatus} />
 			</div>
 		);
 	}

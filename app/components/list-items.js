@@ -12,7 +12,11 @@ export class ListOfItems extends React.Component {
 					<p><strong>{item.content.title}</strong></p>
 					<p>{item.content.body}</p>
 					<p><strong>Status</strong>: {item.status}</p>
-					<a onClick={this.props.handleDeleteItem.bind(this, item)}>Delete</a>
+
+					<p>Select Status:</p>
+					<a onClick={this.props.handleSetStatus.bind(this, item, 'published')}>Publish</a> | 
+					<a onClick={this.props.handleSetStatus.bind(this, item, 'draft')}>Draft</a> | 
+					<a onClick={this.props.handleSetStatus.bind(this, item, 'deleted')}>Delete</a>
 					<hr />
 				</div>
 			)
