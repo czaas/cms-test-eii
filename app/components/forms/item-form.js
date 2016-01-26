@@ -13,7 +13,7 @@ export class AddItem extends React.Component {
 
 		e.preventDefault();
 
-		let newVideo = {
+		let newItem = {
 			"type": this.refs.item_type.value,
 			"id": this.props.items.length,
 			"meta_data": {
@@ -27,7 +27,7 @@ export class AddItem extends React.Component {
 			}
 		};
 		
-		this.props.addVideo(newVideo);
+		this.props.addItem(newItem);
 		this.refs.add_item_form.reset();
 	}
 

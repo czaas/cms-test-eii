@@ -20,8 +20,9 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.handleAddVideo = this.handleAddVideo.bind(this);
+		this.handleAddItem = this.handleAddItem.bind(this);
 		this.componentDidMount = this.componentDidMount.bind(this);
+		this.handleDeleteItem = this.handleDeleteItem.bind(this);
 	}
 
 	componentDidMount() {
@@ -31,22 +32,34 @@ class App extends React.Component {
 
 	}
 
-	handleAddVideo(video) {
-
+	handleAddItem(video) {
 		request.post(this.props.apiUrl, video)
-			.then((response) => this.props.actions.addVideo(JSON.parse(response.config.data)))
+			.then((response) => this.props.actions.addItem(JSON.parse(response.config.data)))
 			.catch((err) => console.log(err));
 	}
 
+	handleDeleteItem(item){
+
+		item.status = 'deleted';
+
+		request.put(`${this.props.apiUrl}/${item.id}`, item)
+			.then((response) => {
+				this.props.actions.updateStatus(JSON.parse(response.config.data));
+				console.log(response);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
 	render() {
-		
 		const { items, actions } = this.props;
 
 		return (
 			<div>
 				<h2>CMS Test</h2>
-				<AddItem items={items} actions={actions} addVideo={this.handleAddVideo} />
-				<ListOfItems items={items} />
+				<AddItem items={items} actions={actions} addItem={this.handleAddItem} />
+				<ListOfItems items={items} handleDeleteItem={this.handleDeleteItem} />
 			</div>
 		);
 	}
