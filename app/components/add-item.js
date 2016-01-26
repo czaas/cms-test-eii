@@ -24,7 +24,6 @@ export class AddItem extends React.Component {
 				"body": this.refs.content_body.value
 			}
 		};
-
 		this.props.addVideo(newVideo);
 		this.refs.add_item_form.reset();
 	}

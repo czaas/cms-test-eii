@@ -3,6 +3,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+let request = axios.create({
+	headers: {
+		'Content-Type': 'application/json',
+		'Accept': 'application/json'
+	}
+});
+
 import * as CmsActions from '../store/cms-actions.js';
 
 import { ListOfItems } from './list-items.js';
@@ -18,14 +25,17 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-		axios.get(this.props.apiUrl)
+		request.get(this.props.apiUrl)
 			.then((response) => this.props.actions.getAllData(response.data))
 			.catch((err) => console.log(err));
 
 	}
 
 	handleAddVideo(video) {
-		this.props.actions.addVideo(video);
+
+		request.post(this.props.apiUrl, video)
+			.then((response) => this.props.actions.addVideo(JSON.parse(response.config.data)))
+			.catch((err) => console.log(err));
 	}
 
 	render() {
